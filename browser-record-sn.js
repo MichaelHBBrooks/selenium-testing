@@ -9,6 +9,8 @@ var request = require('request');
 var webdriverio = require('webdriverio');
 var winston = require('winston');
 
+var browser_actual = require('./browser-actual.js');
+
 var host = 'https://dev30875.service-now.com';
 var authentication = {
     username: 'admin',
@@ -24,22 +26,22 @@ recordClient(host, authentication, table['clients']);
 
 
 function recordClient(host, authentication, table) {
-    var record = {
-        architecture: os.arch(), // eg. x64
-        host_name: os.hostname(),
-        mac_address: getMacAddress(),
-        platform: os.platform(), // eg. win32
-        release: os.release(), // eg. 6.1.7601
-        type: os.type() // eg. Windows_NT
-    }
     var query = 'host_name=' + os.hostname();
     listRecords(host, authentication, table, query, function(records) {
-        var sys_id = records[0]//******************************************
-        if (sys_id === 'undefined') {
-            createRecord(host, authentication, table, record);
-        } else {
-            updateRecord(host, authentication, table, record, sys_id);
-        }
+        // var sys_id = records[0] //******************************************
+        // if (sys_id === 'undefined') {
+        //     var record = {
+        //         architecture: os.arch(), // eg. x64
+        //         host_name: os.hostname(),
+        //         mac_address: getMacAddress(),
+        //         platform: os.platform(), // eg. win32
+        //         release: os.release(), // eg. 6.1.7601
+        //         type: os.type() // eg. Windows_NT
+        //     }
+        //     createRecord(host, authentication, table, record);
+        // } else {
+        //     updateRecord(host, authentication, table, record, sys_id);
+        // }
     });
 }
 
@@ -137,7 +139,7 @@ function getInitDetails(json) {
  * @return {[type]}                [description]
  * @todo  Write this function. Don't forget to convert the query (eg. = should be %3D).
  */
-function listRecords(host, authentication, table, sysparm_query,callback) {
+function listRecords(host, authentication, table, sysparm_query, callback) {
     callback('undefined');
 }
 
