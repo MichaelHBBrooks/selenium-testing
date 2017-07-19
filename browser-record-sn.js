@@ -20,15 +20,16 @@ var table = [];
 table['clients'] = 'x_cerso_capio_clients';
 table['client_capabilities'] = 'x_cerso_capio_client_capabilities';
 
-recordClient(host, authentication, table['clients']);
+processSNClient(host, authentication, table['clients']);
 // getActualCapabilities(process.argv[2]);
 
 
 
-function recordClient(host, authentication, table) {
+function processSNClient(host, authentication, table) {
     var query = 'host_name=' + os.hostname();
-    listRecords(host, authentication, table, query, function(records) {
+    listSNRecords(host, authentication, table, query, function(records) {
         // var sys_id = records[0] //******************************************
+        console.log(records);
         // if (sys_id === 'undefined') {
         //     var record = {
         //         architecture: os.arch(), // eg. x64
